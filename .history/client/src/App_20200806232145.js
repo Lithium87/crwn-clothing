@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 import Header from "./components/header/header.component";
-import ErrorBoundary from "./components/error-boundary/error-boundary.component";
 
 import { GlobalStyle } from "./global.styles";
 
@@ -36,24 +35,22 @@ class App extends React.Component {
         <GlobalStyle />
         <Header />
         <Switch>
-          <ErrorBoundary>
-            <Suspense fallback={<div>...Loading</div>}>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/shop" component={ShopPage} />
-              <Route exact path="/checkout" component={CheckoutPage} />
-              <Route
-                exact
-                path="/signin"
-                render={() =>
-                  this.props.currentUser ? (
-                    <Redirect to="/" />
-                  ) : (
-                    <SignInAndSignUpPage />
-                  )
-                }
-              />
-            </Suspense>
-          </ErrorBoundary>
+          <Suspense fallback={<div>...Loading</div>}>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/shop" component={ShopPage} />
+            <Route exact path="/checkout" component={CheckoutPage} />
+            <Route
+              exact
+              path="/signin"
+              render={() =>
+                this.props.currentUser ? (
+                  <Redirect to="/" />
+                ) : (
+                  <SignInAndSignUpPage />
+                )
+              }
+            />
+          </Suspense>
         </Switch>
       </div>
     );
